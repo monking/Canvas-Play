@@ -211,7 +211,9 @@ window.onload = function() {
 			minRadius: 4,
 			maxRadius: 40,
 			minOrbitRadius: 30,
-			maxOrbitRadius: 150
+			maxOrbitRadius: 150,
+			minOrbitOffset: 0.2,
+			maxOrbitOffset: 0.4
 		}
 	};
 
