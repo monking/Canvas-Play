@@ -16,7 +16,7 @@ body, input {
 }
 section {
 	display: block;
-	width: 900px;
+	width: 930px;
 	height: 600px;
 	top: 50%;
 	margin: -300px auto 0;
@@ -30,13 +30,13 @@ group:after {
 }
 .sidebar {
 	float: left;
-	width: 300px;
+	width: 330px;
 	padding: 10px 0;
 	text-align: right;
 	background-color: #000;
 }
 .sidebar h1, .sidebar group {
-	padding-right: 20px;
+	padding-right: 15px;
 }
 .sidebar group {
 	display: block;

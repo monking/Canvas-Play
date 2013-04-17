@@ -62,7 +62,7 @@ window.onload = function() {
 		if (control.getAttribute("type") === "checkbox") {
 			return control.checked;
 		} else {
-			if (control.value.length) {
+			if (control.value) { // return empty strings and 0 as null
 				if (isNaN(control.value)) {
 					return control.value;
 				} else {
