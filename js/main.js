@@ -1,13 +1,12 @@
 window.onload = function() {
-	var control, liveControls, favorites, favoritesElement,
-		name, element, options;
+	var control, liveControls, presets, presetsElement,
+		name, element, initOptions;
 
-	options = {
-		canvasId: "play",
-		numItems: 100
+	initOptions = {
+		canvasId: "play"
 	};
 	function init() {
-		window.squiggly = new Squiggly(Extends(favorites.bworp, options));
+		window.squiggly = new Squiggly(Extends(presets.bworp, initOptions));
 		setupControls();
 	}
 	controls = {};
@@ -28,27 +27,41 @@ window.onload = function() {
 		}
 		updateAllControls();
 		document.querySelector('form.controls').onsubmit = function(event) {
+			var options, selectedFavorite;
+			options = {};
 			event.preventDefault();
-			options = window.squiggly.options;
 			for (param in controls) {
 				options[param] = getControlValue(controls[param]);
 			}
-			resetSquiggly(options);
+			selectedFavorite = presetsElement.options[presetsElement.selectedIndex].innerHTML;
+			resetSquiggly(Extends(options, presets[selectedFavorite]));
 		};
-		for (param in liveControls) {
+		for (param in controls) {
 			controls[param].onchange = function() {
-				window.squiggly.options[this.getAttribute("name")] = getControlValue(this);
+				var param, value;
+				param = this.getAttribute("name");
+				value = getControlValue(this);
+				updateControlReadout(this, value);
+				if (typeof liveControls[param] !== "undefined")
+					window.squiggly.options[param] = value;
 			};
 		}
-		favoritesElement = document.querySelector(".controls [name=favorites]");
-		for (name in favorites) {
+		presetsElement = document.querySelector(".controls [name=presets]");
+		for (name in presets) {
 			element = document.createElement("option");
 			element.innerHTML = name;
-			favoritesElement.appendChild(element);
+			presetsElement.appendChild(element);
 		}
-		favoritesElement.onchange = function() {
-			resetSquiggly(Extends(favorites[this.options[this.selectedIndex].innerHTML], options));
+		presetsElement.onchange = function() {
+			resetSquiggly(Extends(presets[this.options[this.selectedIndex].innerHTML], initOptions));
 			updateAllControls();
+		};
+		document.querySelector('.controls [data-action="resetChanges"]').onclick = function(event) {
+			resetSquiggly(Extends(presets[presetsElement.options[presetsElement.selectedIndex].innerHTML], initOptions));
+			updateAllcontrols();
+		};
+		document.querySelector('.controls [data-action="clearCanvas"]').onclick = function(event) {
+			window.squiggly.clearCanvas();
 		};
 	}
 	function updateAllControls() {
@@ -56,6 +69,19 @@ window.onload = function() {
 		for (param in controls) {
 			control = document.querySelector('.controls input[name="' + param + '"]');
 			setControlValue(control, window.squiggly.options[param]);
+		}
+	}
+	function updateControlReadout(control, value) {
+		var readout, param, factor, suffix;
+		param = control.getAttribute("name");
+		readout = document.querySelector('.controls [ref="' + param + '"]');
+		if (readout) {
+			factor = readout.getAttribute("data-factor");
+			suffix = readout.getAttribute("data-suffix") || "";
+			if (typeof value === "undefined") {
+				value = getControlValue(control);
+			}
+			readout.innerHTML = (factor ? Math.round(10 * factor * value) / 10 : value) + suffix;
 		}
 	}
 	function getControlValue(control) {
@@ -77,51 +103,115 @@ window.onload = function() {
 		if (control.getAttribute("type") === "checkbox") {
 			control.checked = value;
 		} else {
-			control.value = value === null ? "" : value;
+			control.value = (value === null ? "" : value);
 		}
+		updateControlReadout(control, value);
+	}
+	function restartSquiggly() {
+		resetSquiggly(window.squiggly.options);
 	}
 	function resetSquiggly(options) {
+		var param;
+		for (param in initOptions) {
+			if (typeof options[param] === "undefined") {
+				options[param] = initOptions[param];
+			}
+		}
 		window.squiggly.clear();
 		delete window.squiggly;
 		window.squiggly = new Squiggly(options);
 	}
-	favorites = {
-		"bworp": {
+	presets = {
+		"Bworp": {
 			leaveTrails: true,
 			numItems: 30,
+			maxPetals: 6,
 			minPeriod: 3500,
 			maxPeriod: 9000,
 			minRadius: 2,
 			maxRadius: 40
 		},
-		"sketch": {
+		"Sketch": {
 			leaveTrails: true,
 			numItems: 50,
+			maxPetals: 6,
 			minPeriod: 6000,
 			maxPeriod: 6000,
 			minRadius: 1,
 			maxRadius: 1
 		},
-		"streak": {
+		"Streak": {
 			leaveTrails: true,
 			lifetime: 500,
 			numItems: 50,
+			maxPetals: 4,
 			minPeriod: 5000,
 			maxPeriod: 9000,
 			minRadius: 2,
 			maxRadius: 10,
 			minOrbitRadius: 80,
-			maxOrbitRadius: 130,
+			maxOrbitRadius: 150
 		},
-		"solar": {
+		"Tesseract": {
+			leaveTrails: false,
+			numItems: 1000,
+			maxPetals: 19,
+			minPeriod: 6000,
+			maxPeriod: 6000,
+			minRadius: 1,
+			maxRadius: 1,
+			minOrbitRadius: 30,
+			maxOrbitRadius: 150
+		},
+		"Black Hole": {
+			leaveTrails: false,
+			numItems: 1000,
+			maxPetals: 19,
+			minPeriod: 2500,
+			maxPeriod: 6000,
+			minRadius: 1,
+			maxRadius: 2,
+			minOrbitRadius: 70,
+			maxOrbitRadius: 150,
+			minOrbitOffset: 0.9,
+			maxOrbitOffset: 0.9
+		},
+		"DJ": {
+			leaveTrails: true,
+			numItems: 15,
+			maxPetals: 1,
+			minPeriod: 3500,
+			maxPeriod: 9000,
+			minRadius: 4,
+			maxRadius: 50,
+			minOrbitRadius: 30,
+			maxOrbitRadius: 200,
+			minOrbitOffset: 0,
+			maxOrbitOffset: 0
+		},
+		"Hadron": {
+			leaveTrails: false,
+			numItems: 1000,
+			maxPetals: 19,
+			minPeriod: 7000,
+			maxPeriod: 9000,
+			minRadius: 1,
+			maxRadius: 2,
+			minOrbitRadius: 200,
+			maxOrbitRadius: 200,
+			minOrbitOffset: 0.3,
+			maxOrbitOffset: 0.3
+		},
+		"Solar": {
 			leaveTrails: false,
 			numItems: 7,
+			maxPetals: 6,
 			minPeriod: 3000,
 			maxPeriod: 12000,
 			minRadius: 4,
 			maxRadius: 40,
 			minOrbitRadius: 30,
-			maxOrbitRadius: 150,
+			maxOrbitRadius: 150
 		}
 	};
 

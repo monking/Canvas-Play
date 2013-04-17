@@ -7,7 +7,11 @@ function Squiggly(options) {
 		maxRadius: 20,
 		minOrbitRadius: 30,
 		maxOrbitRadius: 130,
+		minOrbitOffset: 0,
+		maxOrbitOffset: 1,
 		leaveTrails: true,
+		linkPeriods: true,
+		maxPetals: 9,
 		lifetime: null
 	});
 	this.age = 0;
@@ -44,15 +48,16 @@ Squiggly.prototype.add = function(params) {
 		orbitRadius: this.options.minOrbitRadius + Math.random() * (this.options.maxOrbitRadius - this.options.minOrbitRadius),
 		radius: this.options.minRadius + Math.random() * (this.options.maxRadius - this.options.minRadius),
 		color: "#" + RGBOperations("randomHex"),
-		offset: Math.random(),
-		kilter: Math.random()
+		offset: this.options.minOrbitOffset + Math.random() * (this.options.maxOrbitOffset - this.options.minOrbitOffset),
+		kilter: Math.random(),
 	};
+	item.numPetals = 1 + (this.options.maxPetals - 1) * (this.options.linkPeriods ? item.offset : Math.random());
 	item.period = this.options.minPeriod + Math.random() * (this.options.maxPeriod - this.options.minPeriod);
 	this.items.push(item);
 };
 Squiggly.prototype.step = function(item) {
 	var x, y;
-	item.kilter = item.kilter - this.frameDuration / item.period / (1 + 5 * item.offset);
+	item.kilter = item.kilter - this.frameDuration / item.period / item.numPetals;
 	item.progress = (item.progress + this.frameDuration / item.period) % 1;
 	item.originX = this.width / 2 + Math.cos(Math.PI * 2 * item.kilter) * item.orbitRadius * item.offset;
 	item.originY = this.height / 2 + Math.sin(Math.PI * 2 * item.kilter) * item.orbitRadius * item.offset;

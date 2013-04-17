@@ -72,6 +72,10 @@ h1, h2 {
 	width: 40px;
 	vertical-align: middle;
 }
+.controls .readout {
+	display: inline-block;
+	width: 30px;
+}
 #play {
 	float: left;
 }
