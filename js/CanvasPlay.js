@@ -1,22 +1,25 @@
+/*
+ * author: Christopher Lovejoy <lovejoy.chris@gmail.com>
+ * copyright 2013 under an Attribution Creative Commons license
+ * http://creativecommons.org/licenses/by/3.0
+ */
 function CanvasPlay(options) {
-	this.options = {
-		canvasId: null,
+	Extends(options, {
+		canvas: null,
 		context: "2d"
-	};
-	for (var key in this.options) {
-		if (key in options) {
-			this.options[key] = options[key];
-		}
-	}
-	this.init();
-};
-CanvasPlay.prototype = new EventDispatcher();
-CanvasPlay.prototype.init = function() {
+	});
+	CanvasPlay.prototype._super.apply(this, arguments);
+	if (typeof options === "undefined") return;
 	this.canvas = document.getElementById(this.options.canvasId);
+	this.width = parseInt(this.canvas.getAttribute("width"));
+	this.height = parseInt(this.canvas.getAttribute("height"));
 	this.context = this.canvas.getContext(this.options.context);
-	this.dispatchEvent(CanvasPlay.INIT);
 };
+Extends(CanvasPlay, AnimationController);
 CanvasPlay.prototype.clear = function() {
-	// stub
+	this.clearCanvas();
+	CanvasPlay.prototype._super.prototype.clear.call(this);
 };
-CanvasPlay.prototype.INIT = "CanvasPlay_Initialized";
+CanvasPlay.prototype.clearCanvas = function() {
+	this.context.clearRect(0, 0, this.width, this.height);
+};

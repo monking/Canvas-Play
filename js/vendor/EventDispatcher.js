@@ -1,7 +1,11 @@
+/*
+ * author: Christopher Lovejoy <lovejoy.chris@gmail.com>
+ * copyright 2013 under an Attribution Creative Commons license
+ * http://creativecommons.org/licenses/by/3.0
+ */
 function EventDispatcher() {
 	this.listeners = {};
 };
-EventDispatcher.prototype = new InheritanceObject();
 EventDispatcher.prototype.addEventListener = function(eventName, listener) {
 	if (typeof this.listeners[eventName] === "undefined")
 		this.listeners[eventName] = [];

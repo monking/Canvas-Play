@@ -1,15 +1,57 @@
+html {
+	height: 100%;
+}
 body {
 	margin: 0;
 	padding: 0;
 	font-family: sans-serif;
+	background-color: #333;
+	color: #CCC;
+	height: 100%;
+	min-height: 600px;
 }
 section {
 	display: block;
 	width: 800px;
-	margin: 50px auto;
+	height: 600px;
+	top: 50%;
+	margin: -300px auto 0;
+	position: relative;
+}
+section:after {
+	display: table;
+	content: " ";
+}
+.sidebar {
+	float: left;
+	width: 200px;
+	padding: 20px 0;
+	text-align: right;
+	background-color: #000;
+}
+.controls label, .controls, div {
+	display: block;
+	margin: 0.5em 0;
+}
+.controls input[type=text] {
+	width: 50px;
+}
+.sidebar h1, .sidebar group {
+	padding-right: 20px;
+}
+.sidebar group {
+	display: block;
+	border: 1px solid transparent;
+}
+.sidebar group.live {
+	background-color: #222;
+}
+.sidebar h1 {
+	margin-top: 0;
+}
+.sidebar h2 {
+	font-size: 16px;
 }
 #play {
-	width: 800px;
-	height: 600px;
-	outline: 1px solid #CCC;
+	float: left;
 }

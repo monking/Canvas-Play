@@ -4,15 +4,80 @@
 		<title>Canvas play </title>
 		<link type="text/css" rel="stylesheet" href="css/main.css" />
 		<!-- <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script> -->
+		<script type="text/javascript" src="js/vendor/Extends.js"></script>
 		<script type="text/javascript" src="js/vendor/EventDispatcher.js"></script>
+		<script type="text/javascript" src="js/vendor/RequestAnimFrame.js"></script>
+		<script type="text/javascript" src="js/AnimationController.js"></script>
 		<script type="text/javascript" src="js/CanvasPlay.js"></script>
+		<script type="text/javascript" src="js/RGBOperations.js"></script>
 		<script type="text/javascript" src="js/Squiggly.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 	</head>
 	<body>
 		<section>
-			<h1>Canvas Play</h1>
-			<canvas id="play"></canvas>
+			<div class="sidebar">
+				<h1>Canvas Play</h1>
+				<form class="controls">
+					<group class="live">
+						<h2>Live Updating</h2>
+						<label>
+							leave trails
+							<input type="checkbox" name="leaveTrails" checked />
+						</label>
+						<label>
+							framerate
+							<input type="text" name="frameRate" />
+						</label>
+						<label>
+							skip frames
+							<input type="text" name="skipFrames" />
+						</label>
+					</group>
+					<group>
+						<label>
+							lifetime
+							<input type="text" name="lifetime" />
+						</label>
+						<label>
+							elements
+							<input type="text" name="numItems" />
+						</label>
+						<label>
+							min period
+							<input type="text" name="minPeriod" />
+						</label>
+						<label>
+							max period
+							<input type="text" name="maxPeriod" />
+						</label>
+						<label>
+							min radius
+							<input type="text" name="minRadius" />
+						</label>
+						<label>
+							max radius
+							<input type="text" name="maxRadius" />
+						</label>
+						<label>
+							min orbit
+							<input type="text" name="minOrbitRadius" />
+						</label>
+						<label>
+							max orbit
+							<input type="text" name="maxOrbitRadius" />
+						</label>
+						<label>
+							favorites
+							<select name="favorites">
+							</select>
+						</label>
+					</group>
+					<group>
+						<input type="submit" value="Restart" />
+					</group>
+				</form>
+			</div>
+			<canvas id="play" width="600" height="600"></canvas>
 		</section>
 	</body>
 </html>
