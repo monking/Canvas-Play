@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Canvas play </title>
+		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 		<link type="text/css" rel="stylesheet" href="css/main.css" />
 		<!-- <script type="text/javascript" src="js/vendor/jquery-1.9.1.min.js"></script> -->
 		<script type="text/javascript" src="js/vendor/Extends.js"></script>
@@ -25,12 +26,12 @@
 							<input type="checkbox" name="leaveTrails" checked />
 						</label>
 						<label>
-							framerate
-							<input type="text" name="frameRate" />
+							skip frames
+							<span>0<input type="range" name="skipFrames" min="0" max="5" />5</span>
 						</label>
 						<label>
-							skip frames
-							<input type="text" name="skipFrames" />
+							framerate
+							<input type="text" name="frameRate" title="leave empty to use browser frames" />
 						</label>
 					</group>
 					<group>

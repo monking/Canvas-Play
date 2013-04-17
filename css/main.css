@@ -4,37 +4,36 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	font-family: sans-serif;
+	font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 400;
 	background-color: #333;
 	color: #CCC;
 	height: 100%;
 	min-height: 600px;
 }
+body, input {
+	font-size: 12px;
+}
 section {
 	display: block;
-	width: 800px;
+	width: 900px;
 	height: 600px;
 	top: 50%;
 	margin: -300px auto 0;
 	position: relative;
 }
-section:after {
+section:after,
+group:after {
 	display: table;
 	content: " ";
+	clear: both;
 }
 .sidebar {
 	float: left;
-	width: 200px;
-	padding: 20px 0;
+	width: 300px;
+	padding: 10px 0;
 	text-align: right;
 	background-color: #000;
-}
-.controls label, .controls, div {
-	display: block;
-	margin: 0.5em 0;
-}
-.controls input[type=text] {
-	width: 50px;
 }
 .sidebar h1, .sidebar group {
 	padding-right: 20px;
@@ -46,11 +45,32 @@ section:after {
 .sidebar group.live {
 	background-color: #222;
 }
+h1, h2 {
+	font-weight: 300;
+}
 .sidebar h1 {
+	font-size: 24px;
 	margin-top: 0;
 }
 .sidebar h2 {
 	font-size: 16px;
+}
+.controls label, .controls div {
+	float: left;
+	width: 50%;
+	display: block;
+	margin: 0.5em 0;
+}
+.controls input[type=text] {
+	width: 40px;
+}
+.controls label,
+.controls span {
+	white-space: nowrap;
+}
+.controls input[type=range] {
+	width: 40px;
+	vertical-align: middle;
 }
 #play {
 	float: left;
