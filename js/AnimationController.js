@@ -18,7 +18,7 @@ function AnimationController(options) {
 	this.frameRequest = function() {
 		var showFrame, newFrameTime;
 
-		I.frameIndex = window.requestAnimFrame(I.frameRequest);
+		I.frameIndex = window.requestAnimationFrame(I.frameRequest);
 		if (I.paused) {
 			return;
 		}
@@ -45,7 +45,7 @@ function AnimationController(options) {
 Extends(AnimationController, EventDispatcher);
 AnimationController.prototype.play = function() {
 	this.stop();
-	window.requestAnimFrame(this.frameRequest);
+	window.requestAnimationFrame(this.frameRequest);
 };
 AnimationController.prototype.stop = function() {
 	this.paused = false;

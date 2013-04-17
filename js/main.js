@@ -209,7 +209,7 @@ window.onload = function() {
 			minPeriod: 3000,
 			maxPeriod: 12000,
 			minRadius: 4,
-			maxRadius: 40,
+			maxRadius: 20,
 			minOrbitRadius: 30,
 			maxOrbitRadius: 150,
 			minOrbitOffset: 0,
