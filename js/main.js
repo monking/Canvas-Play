@@ -1,12 +1,13 @@
+var presets;
 window.onload = function() {
-	var control, liveControls, presets, presetsElement,
+	var control, liveControls, /*presets, */presetsElement,
 		name, element, initOptions;
 
 	initOptions = {
 		canvasId: "play"
 	};
 	function init() {
-		window.squiggly = new Squiggly(Extends(presets["Black Hole"], initOptions));
+		window.squiggly = new Squiggly(Extends({}, presets["Black Hole"], initOptions));
 		setupControls();
 	}
 	controls = {};
@@ -34,7 +35,7 @@ window.onload = function() {
 				options[param] = getControlValue(controls[param]);
 			}
 			selectedFavorite = presetsElement.options[presetsElement.selectedIndex].innerHTML;
-			resetSquiggly(Extends(options, presets[selectedFavorite]));
+			resetSquiggly(Extends({}, options, presets[selectedFavorite]));
 		};
 		for (param in controls) {
 			controls[param].onchange = function() {
@@ -53,7 +54,7 @@ window.onload = function() {
 			presetsElement.appendChild(element);
 		}
 		presetsElement.onchange = function() {
-			resetSquiggly(Extends(presets[this.options[this.selectedIndex].innerHTML], initOptions));
+			resetSquiggly(Extends({}, presets[this.options[this.selectedIndex].innerHTML]));
 			updateAllControls();
 		};
 		document.querySelector('.controls [data-action="resetChanges"]').onclick = function(event) {
@@ -110,15 +111,9 @@ window.onload = function() {
 		resetSquiggly(window.squiggly.options);
 	}
 	function resetSquiggly(options) {
-		var param;
-		for (param in initOptions) {
-			if (typeof options[param] === "undefined") {
-				options[param] = initOptions[param];
-			}
-		}
 		window.squiggly.clear();
 		delete window.squiggly;
-		window.squiggly = new Squiggly(options);
+		window.squiggly = new Squiggly((Extends(options, initOptions)));
 	}
 	presets = {
 		"Black Hole": {
