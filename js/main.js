@@ -122,6 +122,19 @@ window.onload = function() {
 		window.squiggly = new Squiggly(options);
 	}
 	presets = {
+		"Black Hole": {
+			leaveTrails: false,
+			numItems: 1000,
+			maxPetals: 19,
+			minPeriod: 2500,
+			maxPeriod: 6000,
+			minRadius: 1,
+			maxRadius: 2,
+			minOrbitRadius: 70,
+			maxOrbitRadius: 150,
+			minOrbitOffset: 0.9,
+			maxOrbitOffset: 0.9
+		},
 		"Bworp": {
 			leaveTrails: true,
 			numItems: 30,
@@ -162,19 +175,6 @@ window.onload = function() {
 			maxRadius: 1,
 			minOrbitRadius: 30,
 			maxOrbitRadius: 150
-		},
-		"Black Hole": {
-			leaveTrails: false,
-			numItems: 1000,
-			maxPetals: 19,
-			minPeriod: 2500,
-			maxPeriod: 6000,
-			minRadius: 1,
-			maxRadius: 2,
-			minOrbitRadius: 70,
-			maxOrbitRadius: 150,
-			minOrbitOffset: 0.9,
-			maxOrbitOffset: 0.9
 		},
 		"DJ": {
 			leaveTrails: true,
