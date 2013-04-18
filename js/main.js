@@ -6,7 +6,7 @@ window.onload = function() {
 		canvasId: "play"
 	};
 	function init() {
-		window.squiggly = new Squiggly(Extends(presets.bworp, initOptions));
+		window.squiggly = new Squiggly(Extends(presets["Black Hole"], initOptions));
 		setupControls();
 	}
 	controls = {};
@@ -57,8 +57,8 @@ window.onload = function() {
 			updateAllControls();
 		};
 		document.querySelector('.controls [data-action="resetChanges"]').onclick = function(event) {
-			resetSquiggly(Extends(presets[presetsElement.options[presetsElement.selectedIndex].innerHTML], initOptions));
-			updateAllcontrols();
+			resetSquiggly(presets[presetsElement.options[presetsElement.selectedIndex].innerHTML]);
+			updateAllControls();
 		};
 		document.querySelector('.controls [data-action="clearCanvas"]').onclick = function(event) {
 			window.squiggly.clearCanvas();
@@ -67,8 +67,7 @@ window.onload = function() {
 	function updateAllControls() {
 		var param, control;
 		for (param in controls) {
-			control = document.querySelector('.controls input[name="' + param + '"]');
-			setControlValue(control, window.squiggly.options[param]);
+			setControlValue(controls[param], window.squiggly.options[param]);
 		}
 	}
 	function updateControlReadout(control, value) {
