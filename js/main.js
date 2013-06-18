@@ -16,6 +16,20 @@ window.onload = function() {
 		frameRate:   true,
 		skipFrames:  true
 	};
+	autoResetControls = {
+		lifetime:       true,
+		numItems:       true,
+		linkPeriods:    true,
+		maxPetals:      true,
+		minPeriod:      true,
+		maxPeriod:      true,
+		minRadius:      true,
+		maxRadius:      true,
+		minOrbitRadius: true,
+		maxOrbitRadius: true,
+		minOrbitOffset: true,
+		maxOrbitOffset: true
+	};
 	function setupControls() {
 		var param, control;
 
@@ -28,14 +42,8 @@ window.onload = function() {
 		}
 		updateAllControls();
 		document.querySelector('form.controls').onsubmit = function(event) {
-			var options, selectedFavorite;
-			options = {};
 			event.preventDefault();
-			for (param in controls) {
-				options[param] = getControlValue(controls[param]);
-			}
-			selectedFavorite = presetsElement.options[presetsElement.selectedIndex].innerHTML;
-			resetSquiggly(Extends({}, options, presets[selectedFavorite]));
+			applyControlChanges();
 		};
 		for (param in controls) {
 			controls[param].onchange = function() {
@@ -45,6 +53,8 @@ window.onload = function() {
 				updateControlReadout(this, value);
 				if (typeof liveControls[param] !== "undefined")
 					window.squiggly.options[param] = value;
+				if (typeof autoResetControls[param] !== "undefined")
+					applyControlChanges();
 			};
 		}
 		presetsElement = document.querySelector(".controls [name=presets]");
@@ -64,6 +74,15 @@ window.onload = function() {
 		document.querySelector('.controls [data-action="clearCanvas"]').onclick = function(event) {
 			window.squiggly.clearCanvas();
 		};
+	}
+	function applyControlChanges() {
+		var options, selectedFavorite;
+		options = {};
+		for (param in controls) {
+			options[param] = getControlValue(controls[param]);
+		}
+		selectedFavorite = presetsElement.options[presetsElement.selectedIndex].innerHTML;
+		resetSquiggly(Extends({}, options, presets[selectedFavorite]));
 	}
 	function updateAllControls() {
 		var param, control;
@@ -187,7 +206,7 @@ window.onload = function() {
 			leaveTrails: false,
 			numItems: 1000,
 			maxPetals: 19,
-			minPeriod: 7000,
+			minPeriod: 3000,
 			maxPeriod: 9000,
 			minRadius: 1,
 			maxRadius: 2,
