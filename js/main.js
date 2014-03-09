@@ -7,7 +7,7 @@ window.onload = function() {
 		canvasId: "play"
 	};
 	function init() {
-		window.squiggly = new Squiggly(Extends({}, presets["Black Hole"], initOptions));
+		window.squiggly = new Squiggly(Extends({}, presets["Bworp"], initOptions));
 		setupControls();
 	}
 	controls = {};
